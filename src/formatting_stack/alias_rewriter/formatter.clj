@@ -7,6 +7,11 @@
    [formatting-stack.util :refer [process-in-parallel!]]
    [nedap.utils.modular.api :refer [implement]]))
 
+;; XXX [rewrite-clj.reader :as zip-reader] can be left unrewritten
+;; (`reader` was already in use b/c tools.reader)
+;; for that case a very good choice is removing aliasing, as long as it's safe
+;; at the very least it should try picking rewrite-clj.reader (which is almost the same as removing aliasing)
+
 (defn format! [{::keys [acceptable-aliases-whitelist]} files]
   (let [state (atom (analysis/global-project-aliases))]
     (->> files
